@@ -12,7 +12,6 @@ class Welcome extends CI_Controller {
     {
         $data['titulo'] = 'Registro de Alumnos';
 
-        // Carga las vistas en orden desde application/views/
         $this->load->view('header/header', $data);
         $this->load->view('navegacion/navegacion');
         $this->load->view('alumnos/registro');
