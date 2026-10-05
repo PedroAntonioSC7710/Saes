@@ -72,6 +72,7 @@
             background: white;
             padding: 20px;
             border-radius: 8px;
+            overflow-x: auto;
         }
 
     </style>
@@ -95,41 +96,40 @@
 
 </div>
 
+
 <div class="container-fluid">
 
     <div class="row">
 
         <div class="col-md-2 menu">
 
-            <a href="#">
+            <a href="<?= base_url(); ?>">
                 <i class="bi bi-house-door-fill me-2"></i>
                 Inicio
             </a>
-
 
             <a href="<?= site_url('alumnos/lista'); ?>">
                 <i class="bi bi-people-fill me-2"></i>
                 Alumnos
             </a>
 
-
             <a href="<?= site_url('materias/lista'); ?>">
                 <i class="bi bi-book-fill me-2"></i>
                 Materias
             </a>
 
+            <a href="<?= site_url('profesores/lista'); ?>"
+               class="activo">
 
-            <a href="<?= site_url('profesores/lista'); ?>" class="activo">
                 <i class="bi bi-person-fill me-2"></i>
                 Profesores
-            </a>
 
+            </a>
 
             <a href="#">
                 <i class="bi bi-calculator-fill me-2"></i>
                 Calificaciones
             </a>
-
 
             <a href="#">
                 <i class="bi bi-box-arrow-right me-2"></i>
@@ -139,7 +139,6 @@
         </div>
 
         <div class="col-md-10 contenido">
-
 
             <div class="titulo">
 
@@ -154,12 +153,21 @@
 
             </div>
 
-            <button class="btn btn-primary mb-3">
+            <a href="<?= site_url('profesores/registro'); ?>"
+               class="btn btn-primary mb-3">
 
                 <i class="bi bi-plus-lg"></i>
                 Nuevo Profesor
 
-            </button>
+            </a>
+
+            <a href="<?= site_url('profesores/exportar_excel'); ?>"
+                class="btn btn-success mb-3">
+
+            <i class="bi bi-file-earmark-excel-fill"></i>
+                Exportar a Excel
+
+            </a>
 
             <div class="tabla">
 
@@ -169,11 +177,13 @@
 
                         <tr>
 
-                            <th>#</th>
-                            <th>Número</th>
+                            <th>ID</th>
+                            <th>No. Control</th>
                             <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Especialidad</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>Teléfono</th>
+                            <th>Domicilio</th>
                             <th>Acciones</th>
 
                         </tr>
@@ -183,91 +193,81 @@
 
                     <tbody>
 
+                    <?php if (!empty($profesores)): ?>
+
+                        <?php foreach ($profesores as $profesor): ?>
+
+                            <tr>
+
+                                <td>
+                                    <?= $profesor->id_prof; ?>
+                                </td>
+
+                                <td>
+                                    <?= $profesor->nocontrol_prof; ?>
+                                </td>
+
+                                <td>
+                                    <?= $profesor->nombre_prof; ?>
+                                </td>
+
+                                <td>
+                                    <?= $profesor->apellidop_prof; ?>
+                                </td>
+
+                                <td>
+                                    <?= $profesor->apellidom_prof; ?>
+                                </td>
+
+                                <td>
+                                    <?= $profesor->tel_prof; ?>
+                                </td>
+
+                                <td>
+                                    <?= $profesor->dom_prof; ?>
+                                </td>
+
+                                <td>
+
+                                    <a href="<?= site_url('profesores/editar/' . $profesor->id_prof); ?>"
+                                       class="btn btn-primary btn-sm">
+
+                                        <i class="bi bi-pencil-fill"></i>
+                                        Editar
+
+                                    </a>
+
+
+                                    <a href="<?= site_url('profesores/eliminar/' . $profesor->id_prof); ?>"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('¿Estás seguro de eliminar este profesor?');">
+
+                                        <i class="bi bi-trash-fill"></i>
+                                        Eliminar
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        <?php endforeach; ?>
+
+
+                    <?php else: ?>
+
                         <tr>
 
-                            <td>1</td>
-                            <td>PROF001</td>
-                            <td>Raúl</td>
-                            <td>Hernández</td>
-                            <td>Programación</td>
+                            <td colspan="9"
+                                class="text-center">
 
-                            <td>
-
-                                <button class="btn btn-primary btn-sm">
-
-                                    <i class="bi bi-pencil-fill"></i>
-                                    Editar
-
-                                </button>
-
-                                <button class="btn btn-danger btn-sm">
-
-                                    <i class="bi bi-trash-fill"></i>
-                                    Eliminar
-
-                                </button>
+                                No hay profesores registrados.
 
                             </td>
 
                         </tr>
 
-                        <tr>
-
-                            <td>2</td>
-                            <td>PROF002</td>
-                            <td>María</td>
-                            <td>López</td>
-                            <td>Base de Datos</td>
-
-                            <td>
-
-                                <button class="btn btn-primary btn-sm">
-
-                                    <i class="bi bi-pencil-fill"></i>
-                                    Editar
-
-                                </button>
-
-
-                                <button class="btn btn-danger btn-sm">
-
-                                    <i class="bi bi-trash-fill"></i>
-                                    Eliminar
-
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>3</td>
-                            <td>PROF003</td>
-                            <td>Carlos</td>
-                            <td>Martínez</td>
-                            <td>Redes</td>
-
-                            <td>
-
-                                <button class="btn btn-primary btn-sm">
-
-                                    <i class="bi bi-pencil-fill"></i>
-                                    Editar
-
-                                </button>
-
-                                <button class="btn btn-danger btn-sm">
-
-                                    <i class="bi bi-trash-fill"></i>
-                                    Eliminar
-
-                                </button>
-
-                            </td>
-
-                        </tr>
-
+                    <?php endif; ?>
 
                     </tbody>
 
@@ -283,4 +283,5 @@
 
 
 </body>
+
 </html>

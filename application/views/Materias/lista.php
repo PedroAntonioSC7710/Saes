@@ -94,10 +94,10 @@
 <div class="container-fluid">
 
 <div class="row">
-    
+
     <div class="col-md-2 menu">
 
-        <a href="#">
+        <a href="<?= base_url(); ?>">
             <i class="bi bi-house-door-fill me-2"></i>
             Inicio
         </a>
@@ -107,9 +107,12 @@
             Alumnos
         </a>
 
-        <a href="<?= site_url('materias/lista'); ?>" class="activo">
+        <a href="<?= site_url('materias/lista'); ?>"
+           class="activo">
+
             <i class="bi bi-book-fill me-2"></i>
             Materias
+
         </a>
 
         <a href="<?= site_url('profesores/lista'); ?>">
@@ -123,6 +126,7 @@
         </a>
 
     </div>
+
 
     <div class="col-md-10 contenido">
 
@@ -139,12 +143,23 @@
 
         </div>
 
-        <button class="btn btn-primary mb-3">
 
-            <i class="bi bi-plus-lg"></i>
+        <a href="<?= site_url('materias/registro'); ?>"
+            class="btn btn-primary mb-3">
+
+        <i class="bi bi-plus-lg"></i>
             Nueva Materia
 
-        </button>
+            </a>
+
+        <a href="<?= site_url('materias/exportar_excel'); ?>"
+            class="btn btn-success mb-3">
+
+        <i class="bi bi-file-earmark-excel-fill"></i>
+            Exportar a Excel
+
+        </a>
+
 
         <div class="tabla">
 
@@ -153,73 +168,70 @@
                 <thead class="table-light">
 
                     <tr>
-                        <th>#</th>
-                        <th>Clave</th>
+                        <th>ID</th>
                         <th>Materia</th>
-                        <th>Semestre</th>
                         <th>Acciones</th>
                     </tr>
 
                 </thead>
 
+
                 <tbody>
 
+                <?php if (!empty($materias)): ?>
+
+                    <?php foreach ($materias as $materia): ?>
+
+                        <tr>
+
+                            <td>
+                                <?= $materia->id_mat; ?>
+                            </td>
+
+                            <td>
+                                <?= $materia->descripcion_mat; ?>
+                            </td>
+
+                            <td>
+
+                                <a href="<?= site_url('materias/editar/' . $materia->id_mat); ?>"
+                                   class="btn btn-primary btn-sm">
+
+                                    <i class="bi bi-pencil-fill"></i>
+                                    Editar
+
+                                </a>
+
+                                <a href="<?= site_url('materias/eliminar/' . $materia->id_mat); ?>"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('¿Estás seguro de eliminar esta materia?');">
+
+                                    <i class="bi bi-trash-fill"></i>
+                                    Eliminar
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    <?php endforeach; ?>
+
+
+                <?php else: ?>
+
                     <tr>
-                        <td>1</td>
-                        <td>TIC-601</td>
-                        <td>Programación</td>
-                        <td>6</td>
 
-                        <td>
-                            <button class="btn btn-primary btn-sm">
-                                <i class="bi bi-pencil-fill"></i>
-                                Editar
-                            </button>
+                        <td colspan="4"
+                            class="text-center">
 
-                            <button class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash-fill"></i>
-                                Eliminar
-                            </button>
+                            No hay materias registradas.
+
                         </td>
+
                     </tr>
 
-                    <tr>
-                        <td>2</td>
-                        <td>TIC-602</td>
-                        <td>Base de Datos</td>
-                        <td>6</td>
-
-                        <td>
-                            <button class="btn btn-primary btn-sm">
-                                <i class="bi bi-pencil-fill"></i>
-                                Editar
-                            </button>
-
-                            <button class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash-fill"></i>
-                                Eliminar
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td>TIC-603</td>
-                        <td>Redes</td>
-                        <td>6</td>
-
-                        <td>
-                            <button class="btn btn-primary btn-sm">
-                                <i class="bi bi-pencil-fill"></i>
-                                Editar
-                            </button>
-
-                            <button class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash-fill"></i>
-                                Eliminar
-                            </button>
-                        </td>
-                    </tr>
+                <?php endif; ?>
 
                 </tbody>
 
