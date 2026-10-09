@@ -37,15 +37,15 @@ class Alumnos extends CI_Controller {
         redirect('alumnos/lista');
     }
 
-
     public function lista() {
-
         $data['titulo'] = 'Alumnos';
         $data['alumnos'] = $this->Alumno_model->obtener_alumnos();
 
+        $this->load->view('header/header', $data);
+        $this->load->view('navegacion/navegacion');
         $this->load->view('alumnos/lista', $data);
+        $this->load->view('footer/footer');
     }
-
 
     public function editar($id) {
 

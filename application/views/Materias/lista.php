@@ -1,249 +1,63 @@
-<!DOCTYPE html>
-<html lang="es">
+<main class="container-fluid py-4 px-3 px-lg-5">
+    <div class="bg-white p-4 rounded shadow-sm">
 
-<head>
+        <h2 class="text-primary mb-2">
+            <i class="bi bi-book-fill"></i> Materias
+        </h2>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <p class="text-muted">Registro y consulta de materias</p>
 
-    <title>Materias | SAES</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <style>
-
-        body {
-            background: #f5f6f8;
-        }
-
-        .barra {
-            background: #174f80;
-            color: white;
-            padding: 18px 30px;
-        }
-
-        .menu {
-            background: #eeeeee;
-            min-height: calc(100vh - 75px);
-            padding: 20px 0;
-        }
-
-        .menu a {
-            display: block;
-            padding: 15px 25px;
-            text-decoration: none;
-            color: #222;
-        }
-
-        .menu a:hover {
-            background: #ddd;
-        }
-
-        .menu .activo {
-            background: #0d6efd;
-            color: white;
-        }
-
-        .contenido {
-            padding: 30px;
-        }
-
-        .titulo {
-            background: #e7f1ff;
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .titulo h1 {
-            color: #174f80;
-            font-weight: bold;
-        }
-
-        .tabla {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-<div class="barra d-flex justify-content-between">
-
-    <h2>
-        <i class="bi bi-mortarboard-fill"></i>
-        SAES
-    </h2>
-
-    <span>
-        <i class="bi bi-person-circle"></i>
-        Administrador
-    </span>
-
-</div>
-
-
-<div class="container-fluid">
-
-<div class="row">
-
-    <div class="col-md-2 menu">
-
-        <a href="<?= base_url(); ?>">
-            <i class="bi bi-house-door-fill me-2"></i>
-            Inicio
-        </a>
-
-        <a href="<?= site_url('alumnos/lista'); ?>">
-            <i class="bi bi-people-fill me-2"></i>
-            Alumnos
-        </a>
-
-        <a href="<?= site_url('materias/lista'); ?>"
-           class="activo">
-
-            <i class="bi bi-book-fill me-2"></i>
-            Materias
-
-        </a>
-
-        <a href="<?= site_url('profesores/lista'); ?>">
-            <i class="bi bi-person-fill me-2"></i>
-            Profesores
-        </a>
-
-        <a href="#">
-            <i class="bi bi-calculator-fill me-2"></i>
-            Calificaciones
-        </a>
-
-    </div>
-
-
-    <div class="col-md-10 contenido">
-
-        <div class="titulo">
-
-            <h1>
-                <i class="bi bi-book-fill"></i>
-                Materias
-            </h1>
-
-            <p class="mb-0">
-                Registro y consulta de materias
-            </p>
-
-        </div>
-
-
-        <a href="<?= site_url('materias/registro'); ?>"
-            class="btn btn-primary mb-3">
-
-        <i class="bi bi-plus-lg"></i>
-            Nueva Materia
-
+        <div class="d-flex flex-wrap gap-2 mb-4">
+            <a href="<?= site_url('materias/registro'); ?>" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Nueva Materia
             </a>
 
-        <a href="<?= site_url('materias/exportar_excel'); ?>"
-            class="btn btn-success mb-3">
+            <a href="<?= site_url('materias/exportar_excel'); ?>" class="btn btn-success">
+                <i class="bi bi-file-earmark-excel-fill"></i> Exportar a Excel
+            </a>
+        </div>
 
-        <i class="bi bi-file-earmark-excel-fill"></i>
-            Exportar a Excel
-
-        </a>
-
-
-        <div class="tabla">
-
-            <table class="table table-bordered table-hover">
-
-                <thead class="table-light">
-
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-primary">
                     <tr>
                         <th>ID</th>
                         <th>Materia</th>
                         <th>Acciones</th>
                     </tr>
-
                 </thead>
 
-
                 <tbody>
+                    <?php if (!empty($materias)): ?>
+                        <?php foreach ($materias as $materia): ?>
+                            <tr>
+                                <td><?= html_escape($materia->id_mat); ?></td>
+                                <td><?= html_escape($materia->descripcion_mat); ?></td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="<?= site_url('materias/editar/' . $materia->id_mat); ?>"
+                                           class="btn btn-primary btn-sm">
+                                            <i class="bi bi-pencil-fill"></i> Editar
+                                        </a>
 
-                <?php if (!empty($materias)): ?>
-
-                    <?php foreach ($materias as $materia): ?>
-
+                                        <a href="<?= site_url('materias/eliminar/' . $materia->id_mat); ?>"
+                                           class="btn btn-danger btn-sm"
+                                           onclick="return confirm('¿Dar de baja esta materia?');">
+                                            <i class="bi bi-trash-fill"></i> Eliminar
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <tr>
-
-                            <td>
-                                <?= $materia->id_mat; ?>
+                            <td colspan="3" class="text-center">
+                                No hay materias registradas.
                             </td>
-
-                            <td>
-                                <?= $materia->descripcion_mat; ?>
-                            </td>
-
-                            <td>
-
-                                <a href="<?= site_url('materias/editar/' . $materia->id_mat); ?>"
-                                   class="btn btn-primary btn-sm">
-
-                                    <i class="bi bi-pencil-fill"></i>
-                                    Editar
-
-                                </a>
-
-                                <a href="<?= site_url('materias/eliminar/' . $materia->id_mat); ?>"
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('¿Estás seguro de eliminar esta materia?');">
-
-                                    <i class="bi bi-trash-fill"></i>
-                                    Eliminar
-
-                                </a>
-
-                            </td>
-
                         </tr>
-
-                    <?php endforeach; ?>
-
-
-                <?php else: ?>
-
-                    <tr>
-
-                        <td colspan="4"
-                            class="text-center">
-
-                            No hay materias registradas.
-
-                        </td>
-
-                    </tr>
-
-                <?php endif; ?>
-
+                    <?php endif; ?>
                 </tbody>
-
             </table>
-
         </div>
-
     </div>
-
-</div>
-
-</div>
-
-</body>
-</html>
+</main>

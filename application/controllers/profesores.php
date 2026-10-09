@@ -10,18 +10,16 @@ class Profesores extends CI_Controller {
         $this->load->model('Profesor_model');
     }
 
-
-    // MOSTRAR LISTA DE PROFESORES
     public function lista() {
-
         $data['titulo'] = 'Profesores';
         $data['profesores'] = $this->Profesor_model->obtener_profesores();
 
+        $this->load->view('header/header', $data);
+        $this->load->view('navegacion/navegacion');
         $this->load->view('Profesores/lista', $data);
+        $this->load->view('footer/footer');
     }
 
-
-    // MOSTRAR FORMULARIO DE REGISTRO
     public function registro() {
 
         $data['titulo'] = 'Registro de Profesores';
@@ -32,8 +30,6 @@ class Profesores extends CI_Controller {
         $this->load->view('footer/footer');
     }
 
-
-    // GUARDAR NUEVO PROFESOR
     public function guardar() {
 
         $datos = array(
@@ -51,8 +47,6 @@ class Profesores extends CI_Controller {
         redirect('profesores/lista');
     }
 
-
-    // MOSTRAR FORMULARIO PARA EDITAR
     public function editar($id) {
 
         $data['titulo'] = 'Editar Profesor';
@@ -64,8 +58,6 @@ class Profesores extends CI_Controller {
         $this->load->view('footer/footer');
     }
 
-
-    // ACTUALIZAR PROFESOR
     public function actualizar($id) {
 
         $datos = array(
@@ -84,7 +76,6 @@ class Profesores extends CI_Controller {
     }
 
 
-    // EXPORTAR PROFESORES A EXCEL
     public function exportar_excel() {
 
         $profesores = $this->Profesor_model->obtener_profesores();
@@ -128,8 +119,6 @@ class Profesores extends CI_Controller {
         echo '</table>';
     }
 
-
-    // ELIMINAR PROFESOR
     public function eliminar($id) {
 
         $this->Profesor_model->eliminar($id);

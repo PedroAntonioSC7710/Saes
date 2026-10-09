@@ -10,18 +10,16 @@ class Grupos extends CI_Controller {
         $this->load->model('Grupo_model');
     }
 
-
-    // MOSTRAR LISTA DE GRUPOS
     public function lista() {
-
         $data['titulo'] = 'Grupos';
         $data['grupos'] = $this->Grupo_model->obtener_grupos();
 
+        $this->load->view('header/header', $data);
+        $this->load->view('navegacion/navegacion');
         $this->load->view('Grupos/lista', $data);
+        $this->load->view('footer/footer');
     }
 
-
-    // MOSTRAR FORMULARIO DE REGISTRO
     public function registro() {
 
         $data['titulo'] = 'Registro de Grupos';
@@ -32,8 +30,6 @@ class Grupos extends CI_Controller {
         $this->load->view('footer/footer');
     }
 
-
-    // GUARDAR NUEVO GRUPO
     public function guardar() {
 
         $datos = array(
@@ -46,8 +42,6 @@ class Grupos extends CI_Controller {
         redirect('grupos/lista');
     }
 
-
-    // MOSTRAR FORMULARIO PARA EDITAR
     public function editar($id) {
 
         $data['titulo'] = 'Editar Grupo';
@@ -59,8 +53,6 @@ class Grupos extends CI_Controller {
         $this->load->view('footer/footer');
     }
 
-
-    // ACTUALIZAR GRUPO
     public function actualizar($id) {
 
         $datos = array(
@@ -73,8 +65,6 @@ class Grupos extends CI_Controller {
         redirect('grupos/lista');
     }
 
-
-    // EXPORTAR GRUPOS A EXCEL
     public function exportar_excel() {
 
         $grupos = $this->Grupo_model->obtener_grupos();
@@ -108,8 +98,6 @@ class Grupos extends CI_Controller {
         echo '</table>';
     }
 
-
-    // ELIMINAR GRUPO
     public function eliminar($id) {
 
         $this->Grupo_model->eliminar($id);

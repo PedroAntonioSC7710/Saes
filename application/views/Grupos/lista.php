@@ -1,153 +1,63 @@
-<!DOCTYPE html>
-<html lang="es">
+<main class="container-fluid py-4 px-3 px-lg-5">
+    <div class="bg-white p-4 rounded shadow-sm">
 
-<head>
+        <h2 class="text-primary mb-2">
+            <i class="bi bi-collection-fill"></i> Grupos
+        </h2>
 
-    <meta charset="UTF-8">
+        <p class="text-muted">Registro y consulta de grupos</p>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+        <div class="d-flex flex-wrap gap-2 mb-4">
+            <a href="<?= site_url('grupos/registro'); ?>" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Nuevo Grupo
+            </a>
 
-    <title>Grupos - SAES</title>
+            <a href="<?= site_url('grupos/exportar_excel'); ?>" class="btn btn-success">
+                <i class="bi bi-file-earmark-excel-fill"></i> Exportar a Excel
+            </a>
+        </div>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Grupo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+                <tbody>
+                    <?php if (!empty($grupos)): ?>
+                        <?php foreach ($grupos as $grupo): ?>
+                            <tr>
+                                <td><?= html_escape($grupo->id_grup); ?></td>
+                                <td><?= html_escape($grupo->descripcion_grup); ?></td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="<?= site_url('grupos/editar/' . $grupo->id_grup); ?>"
+                                           class="btn btn-primary btn-sm">
+                                            <i class="bi bi-pencil-fill"></i> Editar
+                                        </a>
 
-</head>
-
-<body>
-
-<nav class="navbar navbar-dark bg-primary">
-
-    <div class="container-fluid">
-
-        <span class="navbar-brand mb-0 h1">
-            SAES - Sistema de Administración Escolar
-        </span>
-
+                                        <a href="<?= site_url('grupos/eliminar/' . $grupo->id_grup); ?>"
+                                           class="btn btn-danger btn-sm"
+                                           onclick="return confirm('¿Dar de baja a este grupo?');">
+                                            <i class="bi bi-trash-fill"></i> Eliminar
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                No hay grupos registrados.
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-</nav>
-
-
-<div class="container mt-4">
-
-    <h2>Grupos</h2>
-
-    <hr>
-
-
-    <a href="<?= site_url('grupos/registro'); ?>"
-       class="btn btn-primary mb-3">
-
-        <i class="bi bi-plus-lg"></i>
-        Nuevo Grupo
-
-    </a>
-
-
-    <a href="<?= site_url('grupos/exportar_excel'); ?>"
-       class="btn btn-success mb-3">
-
-        <i class="bi bi-file-earmark-excel-fill"></i>
-        Exportar a Excel
-
-    </a>
-
-
-    <a href="<?= site_url('alumnos/lista'); ?>"
-       class="btn btn-secondary mb-3">
-
-        Alumnos
-
-    </a>
-
-
-    <a href="<?= site_url('materias/lista'); ?>"
-       class="btn btn-secondary mb-3">
-
-        Materias
-
-    </a>
-
-
-    <a href="<?= site_url('profesores/lista'); ?>"
-       class="btn btn-secondary mb-3">
-
-        Profesores
-
-    </a>
-
-
-    <table class="table table-bordered table-striped">
-
-        <thead class="table-dark">
-
-            <tr>
-
-                <th>ID</th>
-                <th>Grupo</th>
-                <th>Estatus</th>
-                <th>Acciones</th>
-
-            </tr>
-
-        </thead>
-
-
-        <tbody>
-
-            <?php foreach ($grupos as $grupo): ?>
-
-                <tr>
-
-                    <td>
-                        <?= $grupo->id_grup; ?>
-                    </td>
-
-                    <td>
-                        <?= $grupo->descripcion_grup; ?>
-                    </td>
-
-                    <td>
-                        <?= $grupo->estatus_grup; ?>
-                    </td>
-
-                    <td>
-
-                        <a href="<?= site_url('grupos/editar/' . $grupo->id_grup); ?>"
-                           class="btn btn-primary btn-sm">
-
-                            <i class="bi bi-pencil-fill"></i>
-                            Editar
-
-                        </a>
-
-
-                        <a href="<?= site_url('grupos/eliminar/' . $grupo->id_grup); ?>"
-                           class="btn btn-danger btn-sm"
-                           onclick="return confirm('¿Estás seguro de eliminar este grupo?');">
-
-                            <i class="bi bi-trash-fill"></i>
-                            Eliminar
-
-                        </a>
-
-                    </td>
-
-                </tr>
-
-            <?php endforeach; ?>
-
-        </tbody>
-
-    </table>
-
-</div>
-
-</body>
-
-</html>
+</main>

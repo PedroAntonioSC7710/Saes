@@ -11,11 +11,13 @@ class Materias extends CI_Controller {
     }
 
     public function lista() {
-
         $data['titulo'] = 'Materias';
         $data['materias'] = $this->Materia_model->obtener_materias();
 
+        $this->load->view('header/header', $data);
+        $this->load->view('navegacion/navegacion');
         $this->load->view('Materias/lista', $data);
+        $this->load->view('footer/footer');
     }
 
     public function registro() {

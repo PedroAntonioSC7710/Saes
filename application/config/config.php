@@ -23,7 +23,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/Saes/';
+$https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
+
+$scheme = $https ? 'https' : 'http';
+
+$scriptPath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+
+$config['base_url'] = $scheme . '://' . $_SERVER['HTTP_HOST']
+    . rtrim($scriptPath, '/') . '/';
 
 /*
 |--------------------------------------------------------------------------
