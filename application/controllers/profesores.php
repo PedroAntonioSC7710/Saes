@@ -39,7 +39,7 @@ class Profesores extends CI_Controller {
             'apellidom_prof' => $this->input->post('apellidom_prof'),
             'tel_prof'       => $this->input->post('tel_prof'),
             'dom_prof'       => $this->input->post('dom_prof'),
-            'estatus_prof'   => $this->input->post('estatus_prof')
+            'estatus_prof'   => 'alta'
         );
 
         $this->Profesor_model->guardar($datos);
