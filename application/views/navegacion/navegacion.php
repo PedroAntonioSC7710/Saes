@@ -18,11 +18,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSAES">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url(); ?>">
-                        Inicio
-                    </a>
-                </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
@@ -32,10 +27,10 @@
                     <ul class="dropdown-menu">
                         <?php
                         $registros = array(
-                            'alumnos/registro' => 'Alumnos',
-                            'materias/registro' => 'Materias',
-                            'profesores/registro' => 'Profesores',
-                            'grupos/registro' => 'Grupos',
+                            'alumnos/lista' => 'Alumnos',
+                            'materias/lista' => 'Materias',
+                            'profesores/lista' => 'Profesores',
+                            'grupos/lista' => 'Grupos',
                             'procesos/registro/unidad' => 'Unidades'
                         );
                         ?>
@@ -61,7 +56,7 @@
                             'procesos/registro/asignmat' => 'Asignación de materias',
                             'procesos/registro/inscripciongrup' => 'Inscripción a grupos',
                             'procesos/registro/captcal' => 'Captura por unidad',
-                            'calificaciones/registro' => 'Calificaciones'
+                            'calificaciones/lista' => 'Calificaciones'
                         );
                         ?>
 
@@ -83,15 +78,7 @@
                     <ul class="dropdown-menu">
                         <?php
                         $informes = array(
-                            'alumnos/lista' => 'Alumnos',
-                            'materias/lista' => 'Materias',
-                            'profesores/lista' => 'Profesores',
-                            'grupos/lista' => 'Grupos',
-                            'procesos/lista/unidad' => 'Unidades',
-                            'procesos/lista/asignmat' => 'Asignación de materias',
-                            'procesos/lista/inscripciongrup' => 'Inscripción a grupos',
-                            'procesos/lista/captcal' => 'Captura por unidad',
-                            'calificaciones/lista' => 'Calificaciones'
+                        
                         );
                         ?>
 
