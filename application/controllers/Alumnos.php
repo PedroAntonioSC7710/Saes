@@ -43,7 +43,10 @@ class Alumnos extends CI_Controller {
 
         $this->load->view('header/header', $data);
         $this->load->view('navegacion/navegacion');
-        $this->load->view('alumnos/lista', $data);
+        $this->load->view(
+        $this->session->userdata('saes_role') === 'admin'
+            ? 'alumnos/lista'
+            : 'readonly_alumnos_lista', $data);
         $this->load->view('footer/footer');
     }
 

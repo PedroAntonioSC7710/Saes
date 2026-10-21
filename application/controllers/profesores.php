@@ -16,7 +16,10 @@ class Profesores extends CI_Controller {
 
         $this->load->view('header/header', $data);
         $this->load->view('navegacion/navegacion');
-        $this->load->view('Profesores/lista', $data);
+        $this->load->view(
+        $this->session->userdata('saes_role') === 'admin'
+            ? 'Profesores/lista'
+            : 'readonly_Profesores_lista', $data);
         $this->load->view('footer/footer');
     }
 

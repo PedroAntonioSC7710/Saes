@@ -11,3 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |	https://codeigniter.com/userguide3/general/hooks.html
 |
 */
+
+$hook['post_controller_constructor'][] = array(
+    'class' => 'Saes_permissions',
+    'function' => 'check',
+    'filename' => 'Saes_permissions.php',
+    'filepath' => 'hooks'
+);
